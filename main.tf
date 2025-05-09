@@ -1,7 +1,10 @@
 provider "google" {
-  region  = "us-central1"
-  project = "test"
+  credentials = file(var.credentials_file)
+  project     = "annular-ray-459423-e9"
+  region      = "us-central1"
+  zone        = "us-central1-a"
 }
+
 
 resource "google_compute_instance" "my_instance" {
   zone = "us-central1-a"

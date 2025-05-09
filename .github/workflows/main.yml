@@ -29,11 +29,23 @@ jobs:
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
+          - name: Autenticación con GCP
+          run: |
+            echo "${{ secrets.GCP_CREDENTIALS }}" > gcp-creds.json
+  
       - name: Generate Terraform plan
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: gcp-creds.json
         run: |
           terraform init
-          terraform plan -out=tfplan.binary
+          terraform plan -var="credentials_file=gcp-creds.json" -out=tfplan.binary
           terraform show -json tfplan.binary > plan.json
+
+          # - name: Generate Terraform plan
+      #   run: |
+      #     terraform init
+      #     terraform plan -out=tfplan.binary
+      #     terraform show -json tfplan.binary > plan.json
 
       - name: Run Infracost
         run: |
