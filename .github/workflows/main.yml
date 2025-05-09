@@ -29,9 +29,9 @@ jobs:
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
 
-          - name: Autenticación con GCP
-          run: |
-            echo "${{ secrets.GCP_CREDENTIALS }}" > gcp-creds.json
+      - name: Autenticación con GCP
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS }}" > gcp-creds.json
   
       - name: Generate Terraform plan
         env:
