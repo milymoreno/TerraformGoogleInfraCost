@@ -1,7 +1,10 @@
 name: google-nfracost
 
 on:
-  pull_request:
+  #pull_request:
+  push:
+    branches:
+      - main
     paths:
       - '**.tf'
       - '**.tfvars'
