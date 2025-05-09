@@ -1,7 +1,7 @@
 name: google-infracost
 
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
@@ -9,6 +9,14 @@ on:
       - '**.tfvars'
       - '**.yml'
       - '**/infracost.yml'
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - '**.tf'
+  #     - '**.tfvars'
+  #     - '**.yml'
+  #     - '**/infracost.yml'
 
 jobs:
   infracost:
