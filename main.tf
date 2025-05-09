@@ -46,3 +46,4 @@ resource "google_cloudfunctions_function" "my_function" {
     environment = "Prod"
   }
 }
+# dummy comment
