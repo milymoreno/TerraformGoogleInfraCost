@@ -47,15 +47,25 @@ jobs:
           terraform plan -var="credentials_file=gcp-creds.json" -out=tfplan.binary
           terraform show -json tfplan.binary > plan.json
 
-      
       - name: Run Infracost
-        if: github.event.pull_request.number != null
         run: |
           infracost breakdown --path=plan.json --format=json --out-file=infracost.json
           infracost comment github --path=infracost.json \
-            --repo=$GITHUB_REPOSITORY \
+            --repo=${{ github.repository }} \
             --pull-request=${{ github.event.pull_request.number }} \
-            --github-token=${{ secrets.GITHUB_TOKEN }}
+            --github-token=${{ secrets.GH_TOKEN }} \
+            --behavior update
+         
+
+      
+      # - name: Run Infracost
+      #   if: github.event.pull_request.number != null
+      #   run: |
+      #     infracost breakdown --path=plan.json --format=json --out-file=infracost.json
+      #     infracost comment github --path=infracost.json \
+      #       --repo=$GITHUB_REPOSITORY \
+      #       --pull-request=${{ github.event.pull_request.number }} \
+      #       --github-token=${{ secrets.GITHUB_TOKEN }}
 
       # - name: Run Infracost
       #   run: |
